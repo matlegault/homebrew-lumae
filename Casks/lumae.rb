@@ -11,13 +11,17 @@ cask "lumae" do
 
   livecheck do
     url "https://github.com/matlegault/lumae-releases/releases/latest/download/appcast.xml"
-    strategy :sparkle
+    # Sparkle's feed carries the build number beside the marketing version;
+    # the download is named after the marketing version alone.
+    strategy :sparkle do |item|
+      item.short_version
+    end
   end
 
   # Lumae updates itself through Sparkle, so `brew upgrade` leaves it alone
   # unless asked with --greedy; the feed above is the source of truth.
   auto_updates true
-  depends_on macos: ">= :tahoe"
+  depends_on macos: :tahoe
 
   app "Lumae.app"
 
