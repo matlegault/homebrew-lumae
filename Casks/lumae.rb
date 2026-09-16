@@ -13,9 +13,7 @@ cask "lumae" do
     url "https://github.com/matlegault/lumae-releases/releases/latest/download/appcast.xml"
     # Sparkle's feed carries the build number beside the marketing version;
     # the download is named after the marketing version alone.
-    strategy :sparkle do |item|
-      item.short_version
-    end
+    strategy :sparkle, &:short_version
   end
 
   # Lumae updates itself through Sparkle, so `brew upgrade` leaves it alone
